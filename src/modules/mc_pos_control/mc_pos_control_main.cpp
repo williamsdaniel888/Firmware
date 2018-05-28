@@ -249,6 +249,15 @@ MulticopterPositionControl::MulticopterPositionControl() :
 	// fetch initial parameter values
 	parameters_update(true);
 
+	// loop through all flighttasks.
+	// This is a temporary solution and serves as
+	// a work-around to get all parameters loaded into the flighttasks.
+	for (int i = 0; i < (int)FlightTaskIndex::Count; i++) {
+		_flight_tasks.switchTask(i);
+	}
+
+	_flight_tasks.switchTask(FlightTaskIndex::None);
+
 	// set trigger time for arm hysteresis
 	_arm_hysteresis.set_hysteresis_time_from(false, IDLE_BOFORE_TAKEOFF_TIME_US);
 }
